@@ -1,0 +1,8 @@
+Anna;Smith;89245022300;12.12.2000
+John;Miller;89526773400;
+Elena;Fry;89001348023;
+Vivian;Williams;89343338900;
+John;Johnson;89123450978;
+Louis;Mcgee;89345870990;24.03.1993
+Joseph;Riley;89560001403;
+Anna;Romanova;89191917012;
