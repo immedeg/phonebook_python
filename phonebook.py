@@ -120,7 +120,8 @@ class PhoneBook:
         self.edit(person)
     
     def edit(self, person):
-        print("Current contact data:", self.print_person(person))
+        print("Current contact data:", end=' ')
+        self.print_person(person)
 
         field = input("Which field to update? (name, surname, phone, birth_date): ")
         if field not in person:
@@ -187,7 +188,7 @@ class PhoneBook:
             next_person, next_birthday_date = upcoming_birthdays[0]
             days_left = (next_birthday_date - today).days
             print(f"The next birthday is for {next_person['name']} {next_person['surname']} "
-                f"on {next_birthday_date.strftime('%d.%m.%Y')} ({days_left} days left)")
+                f"on {next_birthday_date.strftime('%d.%m.%Y')} ({days_left + 1} days left)")
         else:
             print("No birthdays found")
 
