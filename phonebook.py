@@ -160,6 +160,37 @@ class PhoneBook:
         today = datetime.now()
         age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
         print(f"Age: {age} years")
+        
+    def next_birthday(self):
+        if not self.entries:
+            print("Phonebook is empty")
+            return
+
+        today = datetime.now()
+        upcoming_birthdays = []
+
+        for person in self.entries:
+            if person["birth_date"]:
+                birth_date = datetime.strptime(person["birth_date"], "%d.%m.%Y")
+                this_year_birthday = birth_date.replace(year=today.year)
+
+                # Если день рождения уже прошёл в этом году, смотрим на следующий год
+                if this_year_birthday < today:
+                    this_year_birthday = this_year_birthday.replace(year=today.year + 1)
+
+                upcoming_birthdays.append((person, this_year_birthday))
+
+        # Сортируем по ближайшей дате
+        upcoming_birthdays.sort(key=lambda x: x[1])
+
+        if upcoming_birthdays:
+            next_person, next_birthday_date = upcoming_birthdays[0]
+            days_left = (next_birthday_date - today).days
+            print(f"The next birthday is for {next_person['name']} {next_person['surname']} "
+                f"on {next_birthday_date.strftime('%d.%m.%Y')} ({days_left} days left)")
+        else:
+            print("No birthdays found")
+
 
     def print_book(self):
         if not self.entries:
@@ -187,8 +218,9 @@ class Interface:
             "4": self.phonebook.update_person,
             "5": self.phonebook.delete_person,
             "6": self.phonebook.calculate_age,
-            "7": self.phonebook.save_phonebook,
-            "8": self.quit
+            "7": self.phonebook.next_birthday,  # Новый пункт
+            "8": self.phonebook.save_phonebook,
+            "9": self.quit
         }
 
     def run(self):        
